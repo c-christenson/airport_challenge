@@ -30,3 +30,4 @@ include WeatherConditions
 		landed_plane_count == @capacity
 	end
 
+end
