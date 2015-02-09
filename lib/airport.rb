@@ -1,23 +1,25 @@
-#require_relative 'weather_conditions'
+require_relative 'weather_conditions'
 
-class Airport
+class Airport 
 
-#include WeatherConditions
+include WeatherConditions
 
-#attr_reader :capacity
-
-	def initialize(capacity: 200)
+	def initialize(capacity: 6)
 		@capacity = capacity
 		@landed_planes = []
 	end
 
 	def let_plane_land(plane)
 		raise "Airport is full" if full?
-		@landed_planes << plane	
+		raise "Permission to land denied: the weather is too stormy." if stormy?
+		@landed_planes << plane
+		plane.land	
 	end
 
 	def tell_plane_to_takeoff(plane)
+		raise "Permission to takeoff denied: the weather is too stormy." if stormy?
 		@landed_planes.delete(plane)
+		plane.takeoff
 	end
 
 	def landed_plane_count
@@ -28,17 +30,3 @@ class Airport
 		landed_plane_count == @capacity
 	end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-end
